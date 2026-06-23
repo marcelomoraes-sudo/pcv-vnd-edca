@@ -66,7 +66,7 @@ python main.py
 
 ```
 
-* Rodando para apenas um arquivo específico, além de apresentar uma tabela com o resumo do arquivo, será exibido os momentos quando houver mudança entre 2-opt e swap.
+* Rodando para apenas um arquivo específico, além de apresentar uma tabela com o resumo do arquivo, serão exibidos os momentos quando houve mudança entre 2-opt e swap.
 
 ```bash
 python main.py data/berlin52.tsp
@@ -75,7 +75,6 @@ python main.py data/berlin52.tsp
 
 ## 📊 Resultados Computacionais Obtidos
 
-O script executa cada instância de forma repetida (5 vezes) para extrair a média exata do tempo computacional em segundos utilizando o marcador de alta precisão `time.perf_counter()`.
 
 ```text
 
