@@ -85,11 +85,14 @@ def melhor_vizinho_2opt(rota_atual, custo_atual, matriz_custos):
                 
     return melhor_rota, melhor_custo
 
-def executar_vnd(n, matriz_custos):
+def executar_vnd(n, matriz_custos, verbose=False):
     """
     Estrutura principal da Meta-heurística Variable Neighborhood Descent (VND).
-    Altera sistematicamente entre as vizinhanças N1 e N2 ao encontrar ótimos locais.
+    Retorna a rota, o custo obtido e um dicionário com o total de explorações em N1 e N2.
     """
+    # Contadores de uso das vizinhanças
+    contadores = {"swap": 0, "two_opt": 0}
+    
     # 1. Fase de Construção
     rota = heuristica_vizinho_mais_proximo(n, matriz_custos, cidade_inicial=0)
     custo = calcular_custo_total(rota, matriz_custos)
@@ -97,18 +100,31 @@ def executar_vnd(n, matriz_custos):
     k = 1
     k_max = 2 # N1 = Swap, N2 = 2-Opt
     
+    if verbose:
+        print(f"   [Fase Construtiva] Solução Inicial - Custo: {custo}")
+    
     while k <= k_max:
         if k == 1:
+            contadores["swap"] += 1
+            if verbose: print(f"   --> Explorando Vizinhança N1 (SWAP)...", end="", flush=True)
             nova_rota, novo_custo = melhor_vizinho_swap(rota, custo, matriz_custos)
         elif k == 2:
+            contadores["two_opt"] += 1
+            if verbose: print(f"   --> Explorando Vizinhança N2 (2-OPT)...", end="", flush=True)
             nova_rota, novo_custo = melhor_vizinho_2opt(rota, custo, matriz_custos)
             
         # Se houver melhora estrita, atualiza a solução e retorna à vizinhança N1
         if novo_custo < custo:
+            if verbose: print(f" [MELHOROU: {custo} -> {novo_custo}]")
             rota = nova_rota
             custo = novo_custo
             k = 1 
         else:
+            if verbose: print(" [Sem melhora local]")
             k += 1 # Se não houver melhora, avança para a próxima estrutura de vizinhança
             
-    return rota, custo
+    if verbose:
+        print(f"   [VND Concluído] Custo Final Otimizado: {custo}\n")
+        
+    return rota, custo, contadores
+

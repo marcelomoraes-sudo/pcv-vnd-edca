@@ -48,8 +48,3 @@ def ler_instancia_tsplib(caminho_arquivo):
                 matriz_custos[i][j] = float('inf') # Evita laços de uma cidade para ela mesma
                 
     return dimensao, matriz_custos
-
-
-
-
-

@@ -58,8 +58,18 @@ cd ..
 
 ### Passo 3: Rodar os experimentos computacionais
 
+
+* Rodando o teste em todos os arquivos listados no código do `main.py` e apresentará uma tabela com o resumo de cada arquivo.
+
 ```bash
 python main.py
+
+```
+
+* Rodando para apenas um arquivo específico, além de apresentar uma tabela com o resumo do arquivo, será exibido os momentos quando houver mudança entre 2-opt e swap.
+
+```bash
+python main.py data/berlin52.tsp
 
 ```
 
@@ -70,19 +80,79 @@ O script executa cada instância de forma repetida (5 vezes) para extrair a méd
 ```text
 
 moraes@vm-marcelo:~/vnd$ python3 main.py
-===========================================================================
-              RESULTADOS COMPUTACIONAIS - META-HEURÍSTICA VND
-===========================================================================
-Instância       | Cidades  | Melhor Custo    | Tempo Médio (s)
----------------------------------------------------------------------------
-berlin52        | 52       | 7749            | 0.04472s
-st70            | 70       | 701             | 0.10989s
-eil101          | 101      | 648             | 0.41581s
-ch150           | 150      | 7009            | 1.42008s
-a280            | 280      | 2817            | 15.06222s
-===========================================================================
+
+>> BATERIA DE TESTES AUTOMÁTICA: Processando silenciosamente...
+
+ -> Calculando métricas para berlin52...
+ -> Calculando métricas para st70...
+ -> Calculando métricas para eil101...
+ -> Calculando métricas para ch150...
+ -> Calculando métricas para a280...
+
+==========================================================================================
+                    TABELA CONSOLIDADA DE RESULTADOS - METRICAS FINAIS
+==========================================================================================
+Instância       | Cidades  | Custo Final   | Uso Swap   | Uso 2-Opt  | Tempo (s)
+------------------------------------------------------------------------------------------
+berlin52        | 52       | 7749          | 18         | 5          | 0.04636s
+st70            | 70       | 701           | 21         | 5          | 0.11006s
+eil101          | 101      | 648           | 25         | 8          | 0.41230s
+ch150           | 150      | 7009          | 22         | 10         | 1.41409s
+a280            | 280      | 2817          | 34         | 18         | 15.39067s
+==========================================================================================
+moraes@vm-marcelo:~/vnd$
 
 ```
+ou
+
+
+```text
+
+moraes@vm-marcelo:~/vnd$ python3 main.py data/berlin52.tsp
+
+>> MODO ESPECÍFICO DETALHADO: data/berlin52.tsp
+
+=====================================================================================
+ PROCESSANDO INSTÂNCIA: BERLIN52
+=====================================================================================
+   [Fase Construtiva] Solução Inicial - Custo: 8980
+   --> Explorando Vizinhança N1 (SWAP)... [MELHOROU: 8980 -> 8901]
+   --> Explorando Vizinhança N1 (SWAP)... [MELHOROU: 8901 -> 8840]
+   --> Explorando Vizinhança N1 (SWAP)... [MELHOROU: 8840 -> 8780]
+   --> Explorando Vizinhança N1 (SWAP)... [MELHOROU: 8780 -> 8765]
+   --> Explorando Vizinhança N1 (SWAP)... [MELHOROU: 8765 -> 8751]
+   --> Explorando Vizinhança N1 (SWAP)... [MELHOROU: 8751 -> 8619]
+   --> Explorando Vizinhança N1 (SWAP)... [MELHOROU: 8619 -> 8614]
+   --> Explorando Vizinhança N1 (SWAP)... [Sem melhora local]
+   --> Explorando Vizinhança N2 (2-OPT)... [MELHOROU: 8614 -> 8357]
+   --> Explorando Vizinhança N1 (SWAP)... [Sem melhora local]
+   --> Explorando Vizinhança N2 (2-OPT)... [MELHOROU: 8357 -> 8090]
+   --> Explorando Vizinhança N1 (SWAP)... [MELHOROU: 8090 -> 8078]
+   --> Explorando Vizinhança N1 (SWAP)... [MELHOROU: 8078 -> 8011]
+   --> Explorando Vizinhança N1 (SWAP)... [Sem melhora local]
+   --> Explorando Vizinhança N2 (2-OPT)... [MELHOROU: 8011 -> 7957]
+   --> Explorando Vizinhança N1 (SWAP)... [MELHOROU: 7957 -> 7934]
+   --> Explorando Vizinhança N1 (SWAP)... [MELHOROU: 7934 -> 7917]
+   --> Explorando Vizinhança N1 (SWAP)... [MELHOROU: 7917 -> 7903]
+   --> Explorando Vizinhança N1 (SWAP)... [Sem melhora local]
+   --> Explorando Vizinhança N2 (2-OPT)... [MELHOROU: 7903 -> 7814]
+   --> Explorando Vizinhança N1 (SWAP)... [MELHOROU: 7814 -> 7749]
+   --> Explorando Vizinhança N1 (SWAP)... [Sem melhora local]
+   --> Explorando Vizinhança N2 (2-OPT)... [Sem melhora local]
+   [VND Concluído] Custo Final Otimizado: 7749
+
+
+==========================================================================================
+                    TABELA CONSOLIDADA DE RESULTADOS - METRICAS FINAIS
+==========================================================================================
+Instância       | Cidades  | Custo Final   | Uso Swap   | Uso 2-Opt  | Tempo (s)
+------------------------------------------------------------------------------------------
+berlin52        | 52       | 7749          | 18         | 5          | 0.05167s
+==========================================================================================
+moraes@vm-marcelo:~/vnd$
+
+```
+
 
 *Nota: Os valores de tempo e custo acima podem variar ligeiramente dependendo do ambiente de hardware onde o script for executado.*
 
